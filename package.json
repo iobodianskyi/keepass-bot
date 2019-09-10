@@ -1,0 +1,25 @@
+{
+  "name": "keepass-bot",
+  "version": "1.0.0",
+  "description": "Telegrm bot for saving passwords and other info",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/index"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/iobodianskyi/keepass-bot"
+  },
+  "keywords": [
+    "telegram",
+    "bot",
+    "save",
+    "password"
+  ],
+  "author": "Ivan Obodianskyi",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/iobodianskyi/keepass-bot/issues"
+  },
+  "homepage": "https://github.com/iobodianskyi/keepass-bot#readme"
+}
