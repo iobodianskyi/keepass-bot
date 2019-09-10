@@ -1,4 +1,4 @@
-(async () => {
+(() => {
   'use strict';
 
   const resources = {

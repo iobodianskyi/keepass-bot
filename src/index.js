@@ -1,4 +1,4 @@
-(async () => {
+(() => {
   'use strict';
 
   const http = require('http');
@@ -12,7 +12,7 @@
   const startServer = () => {
     const httpServer = http.createServer(server);
     httpServer.listen(resources.appPort);
-    consoleLogger.info(`Server started on ${httpServer.address().port}`);
+    console.log(`Server started on ${httpServer.address().port}`);
 
     // start bot
     bot.start();
