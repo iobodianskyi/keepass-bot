@@ -34,7 +34,7 @@
 
     telegramBot.start(async (ctx) => {
       const user = ctx.from;
-      db.saveUserInfo(user, photos);
+      db.saveUserInfo(user);
 
       return ctx.reply(messages.welcome);
     });
