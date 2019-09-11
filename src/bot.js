@@ -2,13 +2,16 @@
   'use strict';
 
   const telegraf = require('telegraf');
+  const Telegram = require('telegraf/telegram');
 
   const resources = require('./resources');
+  const db = require('./db');
 
   const bot = {};
 
   const start = () => {
     let telegramBot = new telegraf(resources.bot.token);
+    let telegram = new Telegram(resources.bot.token);
 
     const commands = {
       // todo: restrict only for admin
@@ -29,7 +32,10 @@
       console.log('Ooops! an error occured: ', err)
     })
 
-    telegramBot.start((ctx) => {
+    telegramBot.start(async (ctx) => {
+      const user = ctx.from;
+      db.saveUserInfo(user, photos);
+
       return ctx.reply(messages.welcome);
     });
 
