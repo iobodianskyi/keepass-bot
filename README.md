@@ -11,4 +11,4 @@ Install all required packages with `npm install`
 Project uses nodejs [Node js](https://nodejs.org) with [Espress](https://expressjs.com) as server and [Telegraf](https://telegraf.js.org) as bot API.
 Uses [Firebase](https://firebase.google.com/) as data storage
 
-Run `npm run start` to run server
+Run `npm start` to run server

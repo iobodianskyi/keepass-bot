@@ -5,7 +5,6 @@
   const firebase = require('firebase-admin');
 
   const serviceAccount = require('../keepass-bot-firebase.json');
-  const resources = require('./resources');
 
   const db = {};
   let firestore;
