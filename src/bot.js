@@ -2,7 +2,6 @@
   'use strict';
 
   const telegraf = require('telegraf');
-  const Telegram = require('telegraf/telegram');
   const Markup = require('telegraf/markup')
   const Extra = require('telegraf/extra');
 
@@ -22,11 +21,9 @@
 
   const bot = {};
 
-  let telegram;
-
   const start = () => {
     let telegramBot = new telegraf(resources.bot.token);
-    telegram = new Telegram(resources.bot.token);
+    // telegram = new Telegram(resources.bot.token);
 
     // for BotFather commands setup
     // ping - Is online...
@@ -42,6 +39,8 @@
       enterKey: '`Enter key:`',
       enterInfo: '`Enter info:`',
       whatsFind: '`What\'s find:`',
+      notFound: '`Nothing found. Try again?`',
+      foundMoreKeys: '`Found few keys. Try more specific:`',
       added: '`Added! What\'s next:`',
       error: '`Ooops! an error occured: `'
     };
@@ -94,8 +93,8 @@
           if (key) {
             await db.addUserSet(userId, key, message);
 
-            db.setLastUserAction(userId, '');
-            db.setLastUserActionText(userId, '');
+            await db.setLastUserAction(userId, '');
+            await db.setLastUserActionText(userId, '');
             ctx.deleteMessage();
 
             return ctx.replyWithMarkdown(messages.added, Extra.markup(startKeyboard));
@@ -105,9 +104,19 @@
 
           break;
         }
+        case '':
         case actions.find: {
-          console.log(actions.find);
-          break;
+          const foundSets = await db.findByKey(userId, message);
+          if (foundSets && foundSets.length) {
+            if (foundSets.length === 1) {
+              // todo: better format message
+              return ctx.replyWithMarkdown(`\`${foundSets[0].data}\``, Extra.markup(startKeyboard));
+            } else {
+              return ctx.replyWithMarkdown(`\`${messages.foundMoreKeys}\``, Extra.markup(startKeyboard));
+            }
+          } else {
+            return ctx.replyWithMarkdown(messages.notFound, Extra.markup(startKeyboard));
+          }
         }
         default: {
           // todo: define what to do

@@ -50,13 +50,33 @@
       .set(user, { merge: true });
   }
 
-  const addUserSet = async (userId, key, text) => {
+  const addUserSet = async (userId, key, data) => {
     const newSet = {};
-    newSet[key] = { key, text };
+    newSet[key] = { key, data };
 
     return await firestore.collection(userId + '')
       .doc('sets')
       .set(newSet, { merge: true });
+  }
+
+  const findByKey = async (userId, key) => {
+    const docRef = await firestore.collection(userId + '')
+      .doc('sets').get();
+
+    const sets = docRef.data();
+
+    if (!sets) return null;
+
+    const found = [];
+
+    const keyLowerCase = key.toLowerCase();
+    for (const keyItem of Object.keys(sets)) {
+      if (keyItem.toLowerCase().includes(keyLowerCase)) {
+        found.push(sets[keyItem]);
+      }
+    }
+
+    return found.length ? found : null;
   }
 
   db.init = init;
@@ -66,6 +86,7 @@
   db.getUserLastActionText = getUserLastActionText;
   db.setLastUserActionText = setLastUserActionText;
   db.addUserSet = addUserSet;
+  db.findByKey = findByKey;
 
   module.exports = db;
 })();
