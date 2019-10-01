@@ -24,7 +24,7 @@
   "homepage": "https://github.com/iobodianskyi/keepass-bot#readme",
   "dependencies": {
     "express": "^4.17.1",
-    "firebase-admin": "^8.5.0",
+    "firebase-admin": "^8.6.0",
     "request": "^2.88.0",
     "telegraf": "^3.32.0"
   }
