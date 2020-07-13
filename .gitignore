@@ -42,3 +42,4 @@ testem.log
 Thumbs.db
 .firebase/
 package-lock.json
+src/auth.js
